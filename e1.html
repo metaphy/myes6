@@ -81,7 +81,15 @@
     }
     var id = 21; 
     f3.call({id:42}); 
-
+//---------------------------------------------------------
+    let arrayLike = {
+        '0': 'a',
+        '1': 'b',
+        '2': 'c',
+        'length': 3
+    };
+    let array4 = Array.from(arrayLike); 
+    console.log(array4); 
 </script>
 </body>
 </html>
