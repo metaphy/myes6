@@ -7,6 +7,5 @@
 * Closure: a closure is a persistent scope which holds to the local variables even after the code has move out of that code block.
 * ES6 - Promise is an resolution for the asynchronization programming; it is to replace the traditional callback funciton.
 
-const promise = new Promise(function(resolve, reject) { if (/* 异步操作成功 */){ resolve(value); } else { reject(error); } });
-
-promise.then(function(value) { // success }, function(error) { // failure });
+    const promise = new Promise(function(resolve, reject) { if (/* 异步操作成功 */){ resolve(value); } else { reject(error); } });
+    promise.then(function(value) { // success }, function(error) { // failure });
