@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 </head>
 <body>
-<h2>Part I</h2>
+<h2></h2>
 <script>
 const PI = 3.1415926;  
 //---------------------------------------------------------
@@ -76,7 +76,7 @@ console.log(mm2({x:1}));
 //---------------------------------------------------------
 function f3(){
   setTimeout(()=>{
-    console.log("id: ", this.ID);
+    console.log("After some time, the ID is: ", this.ID);
   }, 200); 
 }
 var ID = 21; 
@@ -92,18 +92,59 @@ let array4 = Array.from(arrayLike);
 console.log(array4); 
 //---------------------------------------------------------
 var student = {
-  sname:  'Han Han',
-  age: 6,
-  gender: 'male'
+  sname:  'Li Lei',
+  age: 6
 }
 console.log (student); 
-student.class = 2; 
+student.gender = 'Male'; 
 console.log (student); 
 
 //student.getName = () => this.sname; 
 // comparing to 
-student.getName = function() {return this.sname;}
-console.log(student.getName()); 
+student.getName = function() {return this.sname};
+console.log('student.getName(): ', student.getName()); 
+
+for (let prop in student){
+    console.log ("The student object's properties & methods:", prop); 
+}
+console.log('Object.keys(student):', Object.keys(student));
+console.log('Object.values(student):', Object.values(student));
+console.log('Object.entries(student):', Object.entries(student));
+console.log('Object.getOwnPropertyNames(student):', Object.getOwnPropertyNames(student));
+console.log('Object.getOwnPropertySymbols(student):', Object.getOwnPropertySymbols(student));
+console.log('Reflect.ownKeys(student):', Reflect.ownKeys(student));
+//---------------------------------------------------------
+const asuper = {
+  foo: 'hello'
+};
+const obj5 = {
+  foo: 'world',
+  find() {
+    return super.foo;
+  }
+};
+
+Object.setPrototypeOf(obj5, asuper);
+console.log(obj5.find()); // "hello"
+//---------------------------------------------------------
+let seta = new Set([1,2,3,4]);
+let setb = new Set([2,9]); 
+let set_union = new Set([...seta, ...setb]); 
+let set_intersect = new Set([...seta].filter(x => setb.has(x))); 
+let set_diff = new Set([...seta].filter(x => !setb.has(x))); 
+console.log(set_union);
+console.log(set_intersect);
+console.log(set_diff);
+
+const mymap = new Map([
+  ['name', '张三'],
+  ['title', 'Author']
+]);
+console.log(mymap); 
+
+
+
+
 
 </script>
 </body>
