@@ -1,95 +1,110 @@
 <!DOCTYPE html>
 <html>
 <head>  
-    <meta charset="UTF-8">
+  <meta charset="UTF-8">
 </head>
 <body>
 <h2>Part I</h2>
 <script>
-    const PI = 3.1415926;  
+const PI = 3.1415926;  
 //---------------------------------------------------------
-    let array1 = [];
-    for (let i = 0; i<10; i++) {
-        array1[i] = function() { 
-            console.log("say what i is:", i);
-        }
-    }
-    array1[3](); 
+let array1 = [];
+for (let i = 0; i<10; i++) {
+  array1[i] = function() { 
+    console.log("say what i is:", i);
+  }
+}
+array1[3](); 
 //---------------------------------------------------------
-    function bar(x=0, y=x) {
-        return [x,y]; 
-    }
-    console.log(bar()); 
+function bar(x=0, y=x) {
+  return [x,y]; 
+}
+console.log(bar()); 
 //---------------------------------------------------------
-    function f1(arg) {
-        {
-            let arg = 1;
-        }
-        console.log(arg); 
-    }
-    f1(0); 
- //---------------------------------------------------------
-    let my_map_result = [[1,1],[2,2],[3,3]].map(([a,b]) => a*b); 
-    // map(function([a,b]) {return a+b;})
-    console.log(my_map_result); 
+function f1(arg) {
+  {
+    let arg = 1;
+  }
+  console.log(arg); 
+}
+f1(0); 
 //---------------------------------------------------------
-    let obj3 = {};
-    let arr3 = [];
-    ({ foo: obj3.prop, bar: arr3[0] } = { foo: 123, bar: true });   // 需要加括号
-    console.log(obj3);
-    console.log(arr3); 
+let my_map_result = [[1,1],[2,2],[3,3]].map(([a,b]) => a*b); 
+ // map(function([a,b]) {return a+b;})
+console.log(my_map_result); 
 //---------------------------------------------------------
-    function f2() {
-        return {
-            name: "George",
-            score: 670.5
-        }
-    }
-    let {name: stu_name, score: stu_score} = f2(); 
-    console.log("The student's name is " + stu_name + " and score is " + stu_score);
+let obj3 = {};
+let arr3 = [];
+({ foo: obj3.prop, bar: arr3[0] } = { foo: 123, bar: true });   // 需要加括号
+console.log(obj3);
+console.log(arr3); 
 //---------------------------------------------------------
-    function Point(x=0, y=0){
-        this.x = x;
-        this.y = y;
-    }
-    const p = new Point(10); 
-    console.log(p); 
+function f2() {
+  return {
+    name: "George",
+    score: 670.5
+  }
+}
+let {name: stu_name, score: stu_score} = f2(); 
+console.log("The student's name is " + stu_name + " and score is " + stu_score);
+//---------------------------------------------------------
+function Point(x=0, y=0){
+  this.x = x;
+  this.y = y;
+}
+const p = new Point(10); 
+console.log(p); 
 
-    function fetch(url, {body = "", method = "GET", headers ={}} = {}) {
-        console.log(method);
-    }
-    fetch(""); 
+function fetch(url, {body = "", method = "GET", headers ={}} = {}) {
+  console.log(method);
+}
+fetch(""); 
 //---------------------------------------------------------
-    // 写法一
-    function mm1({x = 0, y = 0} = {}) {
-        return [x, y];
-    }
+  // 写法一
+function mm1({x = 0, y = 0} = {}) {
+  return [x, y];
+}
 
-    // 写法二
-    function mm2({x, y} = { x: 0, y: 0 }) {
-        return [x, y];
-    }
-    console.log(mm1());
-    console.log(mm2());
-    console.log(mm1({x:1}));
-    console.log(mm2({x:1}));
+  // 写法二
+function mm2({x, y} = { x: 0, y: 0 }) {
+  return [x, y];
+}
+console.log(mm1());
+console.log(mm2());
+console.log(mm1({x:1}));
+console.log(mm2({x:1}));
 //---------------------------------------------------------
-    function f3(){
-        setTimeout(()=>{
-            console.log("id: ", this.id);
-        }, 200); 
-    }
-    var id = 21; 
-    f3.call({id:42}); 
+function f3(){
+  setTimeout(()=>{
+    console.log("id: ", this.ID);
+  }, 200); 
+}
+var ID = 21; 
+f3.call({ID:42}); 
 //---------------------------------------------------------
-    let arrayLike = {
-        '0': 'a',
-        '1': 'b',
-        '2': 'c',
-        'length': 3
-    };
-    let array4 = Array.from(arrayLike); 
-    console.log(array4); 
+let arrayLike = {
+  '0': 'a',
+  '1': 'b',
+  '2': 'c',
+  'length': 3
+};
+let array4 = Array.from(arrayLike); 
+console.log(array4); 
+//---------------------------------------------------------
+var student = {
+  sname:  'Han Han',
+  age: 6,
+  gender: 'male'
+}
+console.log (student); 
+student.class = 2; 
+console.log (student); 
+
+//student.getName = () => this.sname; 
+// comparing to 
+student.getName = function() {return this.sname;}
+console.log(student.getName()); 
+
 </script>
 </body>
 </html>
