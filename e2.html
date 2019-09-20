@@ -32,9 +32,84 @@ function test0(){
   }
 }
 test0(); 
-
-
 //---------------------------------------------------------
+// Closure
+function lazySum (arr){
+  var sum = function() {
+    return arr.reduce((x, y) => x + y);
+  }
+  return sum;
+}
+var mysum = lazySum ([10,20,20]); 
+console.log("Sum of the array:", mysum()); 
+
+function count() {
+  var arr = [];
+  for (let i=1; i<=3; i++) {
+    arr.push(function () {
+        return i * i;
+    });
+  }
+  return arr;
+}
+var fresults = count();
+var ff1 = fresults[0];
+var ff2 = fresults[1];
+var ff3 = fresults[2];
+console.log(ff1(), ff2(), ff3()); 
+
+function create_counter(init) {
+  var c = init || 0;
+  return {
+    inc : function(){
+      c++; 
+      return c;  
+    }
+  }
+}
+var mycounter = create_counter(); 
+console.log(mycounter.inc()); 
+console.log(mycounter.inc()); 
+console.log(mycounter.inc()); 
+//---------------------------------------------------------
+var person = {
+  birth: 1990,
+  getAge : function (){
+    var b = this.birth; 
+    var fage = function() {
+      return new Date().getFullYear() - this.birth; // this point to window or undefined
+    }; 
+    return fage(); 
+  }
+}
+console.log(person.getAge());   //Not work
+
+var person2 = {
+  birth: 1990,
+  getAge : function (){
+    var b = this.birth; 
+    var fage = () => new Date().getFullYear() - this.birth; // this point to the current object: person2
+    return fage(); 
+  }
+}
+console.log(person2.getAge());  // Works
+
+var person3 = {
+  birth: 1990,
+  getAge : function (){
+    return new Date().getFullYear() - this.birth; 
+  }
+}
+console.log(person3.getAge());  // Works
+
+var person4 = {
+  birth: 1990
+}
+person4.getAge = () => {return new Date().getFullYear() - this.birth}; 
+console.log(person4.getAge());  // Not work
+
+
+
 
 </script>
 </body>

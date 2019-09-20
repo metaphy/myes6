@@ -99,10 +99,10 @@ console.log (student);
 student.gender = 'Male'; 
 console.log (student); 
 
-//student.getName = () => this.sname; 
+student.getNameT0 = () => this.sname; 
 // comparing to 
-student.getName = function() {return this.sname};
-console.log('student.getName(): ', student.getName()); 
+//student.getNameT0 = function() {return this.sname};
+console.log('student.getNameT0(): ', student.getNameT0()); 
 
 for (let prop in student){
     console.log ("The student object's properties & methods:", prop); 
