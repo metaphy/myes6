@@ -4,9 +4,9 @@
   <meta charset="UTF-8">
 </head>
 <body>
-<h2>please check the console.</h2>
+<h2>E1: please check the console.</h2>
 <script>
-const PI = 3.1415926;  
+const PI = 3.14159265;  
 //---------------------------------------------------------
 let array1 = [];
 for (let i = 0; i<10; i++) {
@@ -14,12 +14,14 @@ for (let i = 0; i<10; i++) {
     console.log("say what i is:", i);
   }
 }
-array1[3](); 
+array1[3]();  // closure
 //---------------------------------------------------------
-function bar(x=0, y=x) {
+function bar(x=0, y=x) {  // default parameter
   return [x,y]; 
 }
 console.log(bar()); 
+console.log(bar(10)); 
+console.log(bar(10,11)); 
 //---------------------------------------------------------
 function f1(arg) {
   {
@@ -35,7 +37,7 @@ console.log(my_map_result);
 //---------------------------------------------------------
 let obj3 = {};
 let arr3 = [];
-({ foo: obj3.prop, bar: arr3[0] } = { foo: 123, bar: true });   // 需要加括号
+({ field1: obj3.prop, field2: arr3[0] } = {field1: 123, field2: 'hello' });  // 需要加括号
 console.log(obj3);
 console.log(arr3); 
 //---------------------------------------------------------
@@ -47,39 +49,54 @@ function f2() {
 }
 let {name: stu_name, score: stu_score} = f2(); 
 console.log("The student's name is " + stu_name + " and score is " + stu_score);
-//---------------------------------------------------------
-function Point(x=0, y=0){
-  this.x = x;
-  this.y = y;
-}
-const p = new Point(10); 
-console.log(p); 
 
+let {sin, cos} = Math; 
+console.log('sin (PI)', sin (PI)); 
+console.log('cos (PI)', cos (PI)); 
+//---------------------------------------------------------
 function fetch(url, {body = "", method = "GET", headers ={}} = {}) {
   console.log(method);
 }
 fetch(""); 
+
+let [h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11,h12] = 'hello, world!';
+console.log(h0,h1,h2,h3,h4,h5,h6,h7,h8,h9,h10,h11,h12); 
+
+let swapX = 0, swapY = 1; 
+[swapX, swapY] = [swapY, swapX]; 
+console.log(swapX, swapY); 
+
+let scoreMap = new Map([
+  ['Jason', 88], 
+  ['Jay', 14], 
+  ['Nina', 75] 
+]); 
+for (let item of scoreMap){
+  console.log(item); 
+}
+for (let [, values] of scoreMap){
+  console.log(values)
+}
 //---------------------------------------------------------
-  // 写法一
+// 写法一: 函数接收一个对象作为参数，如果没有参数，就使用空对象{}作参数。作为参数的对象有x,y两个属性，如果是空，默认为x=0, y=0
 function mm1({x = 0, y = 0} = {}) {
   return [x, y];
 }
-
-  // 写法二
+// 写法二: 函数接收一个对象作为参数，如果没有参数，就是用默认对象{x:0, y:0}来调用
 function mm2({x, y} = { x: 0, y: 0 }) {
   return [x, y];
 }
-console.log(mm1());
-console.log(mm2());
-console.log(mm1({x:1}));
-console.log(mm2({x:1}));
+console.log("mm1", mm1());  // [0, 0]
+console.log("mm1 with parameter", mm1({x:1}));  // [1, 0]
+console.log("mm2", mm2());  // [0, 0]
+console.log("mm2 with parameter", mm2({x:1}));  // [1, undefined]
 //---------------------------------------------------------
+var ID = 20; 
 function f3(){
   setTimeout(()=>{
     console.log("After some time, the ID is: ", this.ID);
   }, 200); 
-}
-var ID = 21; 
+}; 
 f3.call({ID:42}); 
 //---------------------------------------------------------
 let arrayLike = {
@@ -94,9 +111,7 @@ console.log(array4);
 var student = {
   sname:  'Li Lei',
   age: 6
-}
-console.log (student); 
-student.gender = 'Male'; 
+};  
 console.log (student); 
 
 student.getNameT0 = () => this.sname; 
@@ -113,37 +128,6 @@ console.log('Object.entries(student):', Object.entries(student));
 console.log('Object.getOwnPropertyNames(student):', Object.getOwnPropertyNames(student));
 console.log('Object.getOwnPropertySymbols(student):', Object.getOwnPropertySymbols(student));
 console.log('Reflect.ownKeys(student):', Reflect.ownKeys(student));
-//---------------------------------------------------------
-const asuper = {
-  foo: 'hello'
-};
-const obj5 = {
-  foo: 'world',
-  find() {
-    return super.foo;
-  }
-};
-
-Object.setPrototypeOf(obj5, asuper);
-console.log(obj5.find()); // "hello"
-//---------------------------------------------------------
-let seta = new Set([1,2,3,4]);
-let setb = new Set([2,9]); 
-let set_union = new Set([...seta, ...setb]); 
-let set_intersect = new Set([...seta].filter(x => setb.has(x))); 
-let set_diff = new Set([...seta].filter(x => !setb.has(x))); 
-console.log(set_union);
-console.log(set_intersect);
-console.log(set_diff);
-
-const mymap = new Map([
-  ['name', '张三'],
-  ['title', 'Author']
-]);
-console.log(mymap); 
-//---------------------------------------------------------
-var func_add = new Function('x', 'y', 'return x+y'); 
-console.log("function add result: " , func_add(10,20)); 
 
 </script>
 </body>

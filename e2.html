@@ -6,6 +6,31 @@
 <body>
 <h2>E2: please check the console.</h2>
 <script>
+const asuper = {
+  foo: 'hello'
+};
+const obj0025 = {
+  foo: 'world',
+  find() {
+    return super.foo;
+  }
+};
+
+Object.setPrototypeOf(obj0025, asuper);
+console.log(obj0025.find()); // "hello"
+//---------------------------------------------------------
+let seta = new Set([1,2,3,4]);
+let setb = new Set([2,9]); 
+let set_union = new Set([...seta, ...setb]); 
+let set_intersect = new Set([...seta].filter(x => setb.has(x))); 
+let set_diff = new Set([...seta].filter(x => !setb.has(x))); 
+console.log(set_union);
+console.log(set_intersect);
+console.log(set_diff);
+//---------------------------------------------------------
+var func_add = new Function('x', 'y', 'return x+y'); 
+console.log("function add result: " , func_add(10,20)); 
+
 let arr0 = [1,2,3,4,7,9];
 console.log("arr0", arr0); 
 console.log("arr0.map", arr0.map(x => x*x));
@@ -14,7 +39,7 @@ console.log("arr0.reduce", arr0.reduce((x,y) => x*y ));
 function  string2int(s) {
   var nums = s.split('');
   var nums_2 = nums.map((x,index) => x * Math.pow(10, nums.length - index -1)); 
-  console.log(nums_2); 
+  //console.log(nums_2); 
   return nums_2.reduce((x, y) => x+y);
 } 
 function test0(){
