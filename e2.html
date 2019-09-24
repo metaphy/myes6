@@ -17,6 +17,8 @@ const obj0025 = {
 };
 
 Object.setPrototypeOf(obj0025, asuper);
+//或者使用下面的方式获得继承关系：
+//obj0025.__proto__ = asuper;   // not recommended
 console.log(obj0025.find()); // "hello"
 //---------------------------------------------------------
 let seta = new Set([1,2,3,4]);
@@ -96,6 +98,19 @@ var mycounter = create_counter();
 console.log(mycounter.inc()); 
 console.log(mycounter.inc()); 
 console.log(mycounter.inc()); 
+
+var myinc = (function() {
+  var counter = 0; 
+  return function() {
+    counter++; 
+    return counter; 
+  }
+})(); 
+
+for (let i = 0; i < 5; i++){
+  console.log ('Closure-counter', myinc()); 
+}
+
 //---------------------------------------------------------
 var person = {
   birth: 1990,
@@ -107,7 +122,7 @@ var person = {
     return fage(); 
   }
 }
-console.log(person.getAge());   //Not work
+console.log("Age:", person.getAge());   //Not work
 
 var person2 = {
   birth: 1990,
@@ -117,7 +132,7 @@ var person2 = {
     return fage(); 
   }
 }
-console.log(person2.getAge());  // Works
+console.log("Age:", person2.getAge());  // Works
 
 var person3 = {
   birth: 1990,
@@ -125,16 +140,120 @@ var person3 = {
     return new Date().getFullYear() - this.birth; 
   }
 }
-console.log(person3.getAge());  // Works
+console.log("Age:", person3.getAge());  // Works
 
 var person4 = {
   birth: 1990
 }
 person4.getAge = () => {return new Date().getFullYear() - this.birth}; 
-console.log(person4.getAge());  // Not work
+console.log("Age:", person4.getAge());  // Not work
+//---------------------------------------------------------
+// Fib
+function fib (n) {
+  var a = 0, b = 1; 
+  var arr = [a, b]; 
+  while (arr.length < n) {
+    [a, b] = [b, a+b];
+    arr.push(b);
+  }
+  return arr; 
+}
+console.log(fib (12));
+// generator
+function * fib(n) {
+  var a = 0, b = 1, cur = 0; 
+  while (cur < n) {
+    yield a; 
+    [a, b] =[b, a+b]; 
+    cur ++;
+  }
+  return;
+}
+var myFibGen = fib(5);
+console.log('My generator.next()', myFibGen.next());
+console.log('My generator.next()', myFibGen.next());
+console.log('My generator.next()', myFibGen.next());
+console.log('My generator.next()', myFibGen.next());
+console.log('My generator.next()', myFibGen.next());
+console.log('My generator.next()', myFibGen.next());
+
+/* a total ugly code for the Javascript prototype inheritance
+function Student(name) {
+    this.name = name;
+}
+Student.prototype.hello = function () {
+    console.log('Hello, ' + this.name + '!');
+};
+
+//++++++++++++++++++++++++++++++++++++++++
+// PrimaryStudent构造函数:
+function PrimaryStudent(props) {
+    Student.call(this, props);
+    this.grade = props.grade || 1;
+}
+
+// 空函数F:
+function F() {
+}
+
+// 把F的原型指向Student.prototype:
+F.prototype = Student.prototype;
+
+// 把PrimaryStudent的原型指向一个新的F对象，F对象的原型正好指向Student.prototype:
+PrimaryStudent.prototype = new F();
+
+// 把PrimaryStudent原型的构造函数修复为PrimaryStudent:
+PrimaryStudent.prototype.constructor = PrimaryStudent;
+
+// 继续在PrimaryStudent原型（就是new F()对象）上定义方法：
+PrimaryStudent.prototype.getGrade = function () {
+    return this.grade;
+};
+
+// 创建xiaoming:
+var xiaoming = new PrimaryStudent({
+    name: '小明',
+    grade: 2
+});
 
 
+console.log(xiaoming.name );
+console.log(xiaoming.grade );
 
+xiaoming.hello(); 
+// 验证原型:
+console.log(xiaoming.__proto__ === PrimaryStudent.prototype); // true
+console.log(xiaoming.__proto__.__proto__ === Student.prototype); // true
+
+// 验证继承关系:
+console.log(xiaoming instanceof PrimaryStudent); // true
+console.log(xiaoming instanceof Student); // true
+console.log(xiaoming.__proto__); 
+
+
+function PrimaryStudent(props){
+  Student.call(this, props); 
+  this.grade = props.grade || 1; 
+}
+
+//Object.setPrototypeOf(PrimaryStudent, Student); 
+
+function F(){}
+F.prototype = Student.prototype; 
+PrimaryStudent.prototype = new F();
+
+var honghong = new PrimaryStudent({name:'Xiao Gang'}); 
+
+honghong.hello(); 
+// 验证原型:
+console.log(honghong.__proto__ === PrimaryStudent.prototype); // true
+console.log(honghong.__proto__.__proto__ === Student.prototype); // true
+
+// 验证继承关系:
+console.log(honghong instanceof PrimaryStudent); // true
+console.log(honghong instanceof Student); // true
+console.log(honghong.__proto__); 
+**/
 
 </script>
 </body>
